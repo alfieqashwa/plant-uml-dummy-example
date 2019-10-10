@@ -1,11 +1,8 @@
 # Plant UML Dummy Example Point of Sale
 
-##### Source:
-## Point Of Sales Terminal
-##### By:
-## Deepesh Khaneja
-#### From:
-## Carleton University
+##### Source: Point Of Sales Terminal
+##### By: Deepesh Khaneja
+#### From: Carleton University
 
 ---
 
