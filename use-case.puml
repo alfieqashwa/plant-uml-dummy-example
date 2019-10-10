@@ -1,0 +1,45 @@
+@startuml
+  title POS System
+  left to right direction
+  skinparam packageStyle rect
+  actor Customer #blue
+  :Cashier: #HotPink
+  actor Admin #Red
+  :Manager: #Green
+  rectangle UseCase {
+    (Cancel Transaction) as (CT)
+    (Generate Sales Report) as (GSR)
+    (Reorder Depleted Inventory) as (RDI)
+    (Applying Loyalty Points) as (ALP)
+
+      Customer --> (Check Out)
+      Customer --> (CT)
+      Customer --> (Return Item)
+      Cashier --> (Check Out)
+      Cashier --> (Print Receipt)
+      Cashier --> (Inventory Report)
+      Cashier --> (Login)
+
+
+      Admin --> (Manage Users)
+      Admin --> (Update Inventory)
+
+      Manager --> (Login)
+      Manager --> (GSR)
+      Manager --> (RDI)
+
+      (Check Out) ..> (Scanning Item): <<include>>
+      (Check Out) ..> (Calculate Net Price inc Taxes): <<include>>
+      (Check OUt) ..> (Payment): <<include>>
+      (Check Out) ..> (ALP): <<include>>
+
+      (Payment) <- (Cash)
+      (Payment) <- (Credit/Debit Card)
+      (Payment) <- (Points Redemption)
+
+      (Update Inventory) ..> (Check Out): <<include>>
+      (Update Inventory) ..> (Inventory Report): <<include>>
+      (GSR) ..> (Inventory Report): <<include>>
+      (Manage Users) ..> (Login) <<include>>
+  }
+@enduml

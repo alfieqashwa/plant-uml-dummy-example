@@ -1,0 +1,47 @@
+@startuml
+  title PoS System
+
+  node ReceiptPrinter [
+    <<device>>
+    ---
+    Receipt Printer
+  ]
+  node BarcodeScanner [
+    <<device>>
+    ---
+    Barcode Scanner
+  ]
+  node DispScreen [
+    <<device>>
+    ---
+    Display Screen
+  ]
+  node PTerm #LightSkyBlue [
+    <<device>>
+    ---
+    POS Terminal
+  ]
+  node AppServer [
+    <<device>>
+    ---
+    Application Server
+  ]
+  node DebCredCardReader [
+    <<include>>
+    ---
+    Debit/Credit Card Reader
+  ]
+  node CashDrawer [
+    <<include>>
+    ---
+    Cash Drawer
+  ]
+
+  PTerm -- ReceiptPrinter
+  PTerm -- BarcodeScanner
+  PTerm -- DispScreen
+  PTerm -- AppServer
+  PTerm -- DebCredCardReader
+  PTerm -- CashDrawer
+
+@enduml

@@ -1,0 +1,107 @@
+@startuml
+title Entity Class Diagram
+
+class "Retail Store" as Retail {
+  -name:string
+  -address:string
+  +viewStock()
+  +addStock()
+  ~memberName()
+}
+class "POS Terminal" as POS #IndianRed {
+  -terminalNo:int
+  +showPurchaseDetails()
+}
+class "Administrator" as Admin #LightBlue {
+  -name:string
+  -loginId:int
+  #manageUsers()
+}
+class "Loyality Point Card" as LPC {
+  -cardNo:int
+  -type:string
+  +redemption()
+}
+class Customer #LightBlue {
+  -pointsId:int
+  -name:string
+  +makePayment()
+}
+class Cashiers #LightBlue {
+  -name:string
+  -loginId:int
+  -age:int
+  +enterItem()
+}
+class "Debit/Credit" as DebCred #PapayaWhip {
+  -cardNo:int
+}
+class Items {
+  -barcode:int
+  -name:string
+}
+class "Sale/Transaction" as Transaction {
+  -orderNo:int
+  -date:int
+  -time:int
+  +print()
+  +getTotal()
+  +viewSales()
+}
+class Payment #PapayaWhip {
+  -type:int
+  -amount:float
+  +getBalance()
+}
+class "Point Redemption" as PointRedemp #PapayaWhip {
+  -pointNo:int
+}
+class Cash #PapayaWhip {
+  -amount:float
+}
+class "Product Catalogue" as ProdCat {
+  -period:int
+  -year:int
+  +showAllPdt()
+  +addNewPdt()
+}
+class "Product Specification" as ProdSpec {
+  -name:string
+  -weight:int
+  -bachNo:int
+  -desc:string
+  -price:float
+  +viewPdtDesc()
+}
+class Manager #LightBlue {
+  -name:string
+  -loginId:int
+  -age:int
+  -address:string
+  +manageStock()
+  +updateStock()
+  +manageSales()
+  +viewSaleDetails()
+}
+
+  Retail "1" -> "1..*" POS : linkedby
+  Retail "1" -> "1..*" Customer : has
+  Retail "1" -> "1..*" Items: stocks
+  Retail "1..*" -> "1" ProdCat: usedby
+  POS "1" -> "1..*" Admin : maintainedby
+  POS "1" -> "1..*" Cashiers : operatedby
+  POS "1" <- "1..*" Transaction : capturedby
+  POS "1" -> "1..*" ProdCat: storesdatabeof
+  LPC "1" <- "1" Customer : owns
+  LPC "1..*" -> "1..*" Items : gets/redeempointsof
+  Customer "1" -> "1..*" Items : purchases
+  Customer "1" -> "1" Transaction : completes
+  Cashiers "1" -- "1" Transaction : initiatedby
+  Items "1..*" -> "1" ProdSpec : describes
+  Transaction "1" -> "1" Payment : finished
+  Transaction "1..*" -- "1" Manager : managedby
+  ProdCat "1" -> "1..*" ProdSpec : contains
+  PointRedemp -|> Payment
+  DebCred -|> Payment
+  Cash -|> Payment
+@enduml

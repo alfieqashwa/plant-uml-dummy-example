@@ -1,0 +1,35 @@
+@startuml
+title I'm Fucked up
+package "Master" {
+  Folder "Yarn Workspaces" {
+    [ Backend ]
+    [ Frontend ]
+  }
+}
+package "Staging" {
+  Folder {
+    [ Staging Backend ]
+    [ Staging Frontend ]
+  }
+}
+:Admin: -> Master : merged
+:Admin: -> Staging : merged
+Master -- Staging : branch
+:Backend Manager: -> [Staging Backend] : merge
+:Frontend Manager: -> [Staging Frontend] : merge
+:Frontend Manager: -> [@feat/state-management] : merged
+:QA - DevOps: -> (@feat/cypress)
+Staging -- [Staging Frontend] : branch
+Staging -- [Staging Backend] : branch
+[Staging Frontend] -- (@feat/Desktop) : branch
+[Staging Frontend] -- (@feat/Web) : branch
+[Staging Frontend] -- (@feat/Mobile) : branch
+[Staging Frontend] -- (@feat/cypress) : branch
+[Staging Frontend] -- (@feat/state-management) : branch
+(@feat/Desktop) -- (@desktop/layout) : branch
+(@feat/Desktop) -- (@desktop/design-system) : branch
+(@feat/Web) -- (@web/layout) : branch
+(@feat/Web) -- (@web/design-system) : branch
+(@feat/Mobile) -- (@mobile/layout) : branch
+(@feat/Mobile) -- (@mobile/design-system) : branch
+@enduml

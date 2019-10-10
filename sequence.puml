@@ -1,0 +1,37 @@
+@startuml
+title Transaksi POS
+actor Cashier #HotPink
+participant System #MediumPurple
+actor Customer #blue
+
+Cashier -> System: Login
+alt ID + passwd benar
+  System --> Cashier: Masuk ke dashboard cashier.
+else ID + passwd salah
+  System --> Cashier: Autentifikasi di tolak
+  note left: Cashier panggil Manager
+end
+
+Customer -> Cashier: Menyerahkan produk yg akan dibeli
+Cashier -> System: Input order (scan)
+System --> Cashier: Display deskripsi info total, qty, & harga
+System --> Customer: Display info harga/unit + tax
+System --> Cashier: Display total + tax
+System --> Customer: Display total + tax
+Cashier -> Customer: Meminta pembayaran
+Customer -> Cashier: Memberikan nominal pembayaran
+Cashier -> System: Input transaksi pembayaran
+alt successful case
+  System --> Cashier: Mengeluarkan struk + cash draw terbuka
+  Cashier -> Customer: Memberikan struk + kembalian
+  note left #LightSkyBlue: Makasih ya
+Customer --> Cashier: Terima struk + uang kembalian
+  note right: Makasih juga ya
+else printer + cashdraw error
+  Cashier -> Customer: Memberikan manual nota + kembalian
+  note left #LightSkyBlue: Makasih ya, maaf printernya lagi error
+Customer --> Cashier: Terima nota + uang kembalian
+  note right: Gpp kok, yg penting kembaliannya
+end
+Cashier -> System: End Sale
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+title Physical Classes Diagram
+
+  class RetailStore #Turquoise
+  class POSTerminal #Turquoise
+  RetailStore "1" -> "1..*" POSTerminal : has
+
+  class Cashier #MediumPurple
+  class POST #LightSkyBlue
+  class Administrator #MediumPurple
+  Cashier "1..*" -> "1" POST : operates
+  POST "1" <- "1..*" Administrator : maintains
+
+  class Customer #LightGreen
+  class BarcodeScanner #LightGreen
+  class Printer #LightGreen
+  class KeyboardInput #LightGreen
+  class DisplayScreen #LightGreen
+  class CardPaymentMachine #LightGreen
+  class CashTill #LightPink
+  Customer "1..*" --o POST
+  BarcodeScanner "1" --o POST
+  Printer "1" --o POST
+  KeyboardInput "1" --o POST
+  DisplayScreen "1..*" --o POST
+  CardPaymentMachine "1" --o POST
+  CashTill "1" --o POST
+
+  class Items #LightSalmon
+  class Receipt #LightSalmon
+  class InputToSystem #LightSalmon
+  Items "1..*" <- "1" BarcodeScanner : scan
+  Receipt "1" <- "1" Printer : prints
+  InputToSystem "1" <- "1" KeyboardInput : provides
+
+  class DebitCreditLoyaltyCard #LightSalmon
+  class Bills #LightSalmon
+
+  DebitCreditLoyaltyCard "1" <- "1" CardPaymentMachine : reads
+  Bills "1..*" <- "1" CashTill : keep
+
+@enduml

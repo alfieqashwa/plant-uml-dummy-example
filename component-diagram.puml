@@ -1,0 +1,17 @@
+@startuml
+node "GraphQL API Server" as APIServer
+
+database PostgreSQL
+
+[GraphQL]
+() Desktop
+() Web
+() Mobile
+
+PostgreSQL -- APIServer
+APIServer -- GraphQL
+GraphQL -- Desktop
+GraphQL -- Web
+GraphQL -- Mobile
+
+@enduml
